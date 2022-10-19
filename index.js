@@ -1,37 +1,40 @@
+//express
 const express = require("express");
+const app = express();
+
+//debug
+const debug = require("debug")("app:startup");
+
+//build in middleware
+const morgan = require("morgan");
+const helmet = require("helmet");
+
+//custom middleware
 const logger = require("./logger");
 const auth = require("./auth");
 
-const app = express();
+// route for courses
+const router = require("./routes/course");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public")); // access a static file in browser
 
-let courseList = [
-  { id: 1, tech: "javascript" },
-  { id: 2, tech: "react" },
-  { id: 3, tech: "nodejs" },
-];
-
+app.use(helmet());
 app.use(logger);
+
 app.use(auth);
 
-// Post API
+app.use("/postcourse", router);
 
-app.post("/postcourse", (req, res) => {
-  const course = {
-    id: courseList.length + 1,
-    tech: req.body.tech,
-  };
-  courseList.push(course);
-  res.send(course);
-});
+//Enviroment variable
 
-// GET API
-app.use("/postcourse", (req, res) => {
-  res.send(courseList);
-  console.log("Request Type:", req.method);
-});
+debug(`Enviroment NODE_ENV : ${process.env.NODE_ENV}`); //Enviroment NODE_ENV : undefined
+debug(`app:${app.get("env")}`); //app:development
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny")); // GET /postcourse 200 79 - 5.984 ms
+  debug("Morgam active");
+}
 
 app.listen(3000);
