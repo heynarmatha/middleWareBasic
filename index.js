@@ -10,8 +10,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 
 //custom middleware
-const logger = require("./logger");
-const auth = require("./auth");
+const logger = require("./middleware/logger");
+const auth = require("./middleware/auth");
 
 // route for courses
 const router = require("./routes/course");
