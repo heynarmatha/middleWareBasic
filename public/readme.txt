@@ -2,6 +2,7 @@ A middleware function is a function that takes a request object and either termi
 request/response cycle or passes control to another middleware function.
 
 - Express has a few built-in middleware functions:
+
 - json() : to parse the body of requests with a JSON payload
 - urlencoded() : to parse the body of requests with URL-encoded payload
 - static() : to serve static files

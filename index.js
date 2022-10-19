@@ -29,12 +29,14 @@ app.use("/postcourse", router);
 
 //Enviroment variable
 
-debug(`Enviroment NODE_ENV : ${process.env.NODE_ENV}`); //Enviroment NODE_ENV : undefined
-debug(`app:${app.get("env")}`); //app:development
+// debug(`Enviroment NODE_ENV : ${process.env.NODE_ENV}`);
+//Enviroment NODE_ENV : undefined
+// debug(`app:${app.get("env")}`);
+//app:development
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny")); // GET /postcourse 200 79 - 5.984 ms
-  debug("Morgam active");
+  // debug("Morgam active");
 }
 
-app.listen(3000);
+// app.listen(3000);
